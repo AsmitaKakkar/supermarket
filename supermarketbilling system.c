@@ -5,65 +5,235 @@
 #include<math.h>
 #include<time.h>
 
+
+static int count=12;
+
 void mainmenu()
 {
-	printf("-----------------------------------------------------------------\n");
+	printf("-----------------------------------------------------------------------------------------\n");
 	printf("\t\t\tMAIN MENU\n");
-	printf("-----------------------------------------------------------------\n\n\n");
+	printf("-------------------------------------------------------------------------------------\n\n\n");
 	printf("1. ADMINISTRATOR\n");
 	printf("2. CUSTOMER \n");
 	printf("3. EXIT \n");
-	printf("-----------------------------------------------------------------\n");
+	printf("------------------------------------------------------------------------------------------\n");
 }
 
 
 
 void administrator()
 {
-	printf("------------------------------------------------------------------\n");
+	printf("-------------------------------------------------------------------------------------------\n");
 	printf("\t\t\tADMINISTRATOR BLOCK\n");
-	printf("------------------------------------------------------------------\n\n\n");
+	printf("-------------------------------------------------------------------------------------------\n\n\n");
 	printf("1. To add a new product\n");
 	printf("2. To delete an existing product\n");
 	printf("3. To modify an existing product\n");
 	printf("4. To display all products\n");
 	printf("5. To display product menu\n");
 	printf("6. Back to main menu\n");
-	printf("--------------------------------------------------------------------\n");
+	printf("----------------------------------------------------------------------------------------------\n");
 }
 
 
-void add()
+ struct details
+    {
+        char name[50];
+        float price;
+        int code;
+        int discount;
+        int quantity;
+    };
+    struct details item[50];
+
+
+
+//these items would always be available in our stock
+void available()
 {
-	printf("We will add new product here!!");
+	strcpy(item[0].name,"tea");
+	item[0].code=121;
+	item[0].price=10;
+	item[0].discount=5;
+	strcpy(item[1].name,"coffee");
+	item[1].code=222;
+	item[1].price=30;
+	item[1].discount=5;
+	strcpy(item[2].name,"ghee");
+	item[2].code=141;
+	item[2].price=200;
+	item[2].discount=10;
+	strcpy(item[3].name,"butter");
+	item[3].code=289;
+	item[3].price=250;
+	item[3].discount=0;
+	strcpy(item[4].name,"cream");
+	item[4].code=186;
+	item[4].price=400;
+	item[4].discount=15;
+	strcpy(item[5].name,"soap");
+	item[5].code=132;
+	item[5].price=50;
+	item[5].discount=5;
+	strcpy(item[6].name,"honey");
+	item[6].code=189;
+	item[6].price=100;
+	item[6].discount=0;
+	strcpy(item[7].name,"sugar");
+	item[7].code=299;
+	item[7].price=80;
+	item[7].discount=5;
+	strcpy(item[8].name,"pista");
+	item[8].code=149;
+	item[8].price=300;
+	item[8].discount=10;
+	strcpy(item[9].name,"oil");
+	item[9].code=281;
+	item[9].price=150;
+	item[9].discount=2;
+	strcpy(item[10].name,"besan");
+	item[10].code=123;
+	item[10].price=40;
+	item[10].discount=0;
+	strcpy(item[11].name,"sauce");
+	item[11].code=743;
+	item[11].price=70;
+	item[11].discount=5;
+	
+}
+
+
+void product_Menu(int count)
+{
+	int i;
+	printf("-------------------------------------------------------------------------------------------\n");
+	printf("\t\t\t\tSUPERMARKET\n");
+	printf("--------------------------------------------------------------------------------------------\n");
+	printf("--------------------------------------------------------------------------------------------\n");
+	printf("\tSR_NO. \t\t| CODE \t\t| ITEM \t\t\t| PRICE \t| DISCOUNT %%\n");
+	printf("---------------------------------------------------------------------------------------------\n");
+	available();
+	for(i=0;i<count;i++)
+	printf("\t %d\t\t %d\t\t %s\t\t\t %f\t\t %d\t\n",i+1,item[i].code,item[i].name,item[i].price,item[i].discount);
+	printf("----------------------------------------------------------------------------------------------\n");
+}
+
+
+void add(int count)
+{
+	static int i=12;
+	do
+	{
+		printf("Enter product name:");
+		scanf("%s",&item[i].name);
+		printf("Enter product code:");
+		scanf("%d",&item[i].code);
+		printf("Enter product price:");
+		scanf("%d",&item[i].price);
+		printf("Enter discount on the given product (if any):");
+		scanf("%d",&item[i].discount);
+		
+		i++;
+	}
+	while(0);
+	
+	printf("%s added to the market successfully!!\n",item[i-1].name);
+	printf("Now the total number of products available in the market are: %d\n",count);
+	
+	//1000 is the total limit of items that can be stored in a supermarket.
+	
 }
 
 
 
 void delete()
 {
-	printf("We will delete an existing product here!!");
+	int i; 
+	int num;
+	
+	product_Menu(count);
+
+	printf("Enter a serial number of the product you would like to delete:\n");
+	scanf("%d",&num);
+	
+	if(num>count)
+	{
+		printf("SORRY!!\n THIS SERIAL NUMBER DOES NOT EXISTS!!\n");
+	}
+	else
+	{
+		for(i=0;i<count;i++)
+		{
+		if(item[i].code==item[num-1].code)
+		{
+			item[num-1].code=0;
+			strcpy(item[num-1].name,"\0");
+			item[num-1].price=0;
+			item[num-1].discount=0;
+		}
+		
+		}
+		printf("Product deleted successfully!!\n");
+	}
+
+ 
 }
 
 
 
 void modify()
 {
-	printf("We will modify an existing product here!!");
+	int mod;
+	printf("Enter Serial number:");
+	scanf("%d",&mod);
 	
+	if(mod>count)
+	{
+		printf("SORRY!!\n THIS SERIAL NUMBER DOES NOT EXISTS\n");
+	}
+	else
+	{
+			
+	printf("----------------------------------------------------------------------------------\n");
+	printf("----------------------------------------------------------------------------------\n");
+	printf("Product name:%s\n",item[mod-1].name);
+	printf("Product code:%d\n\n",item[mod-1].code);
+	printf("Price:%f\n",item[mod-1].price);
+	printf("Discount(if any?):%d\n",item[mod-1].discount);
+	printf("----------------------------------------------------------------------------------\n");
+	printf("----------------------------------------------------------------------------------\n\n\n");
+	
+	printf("-----------------------------------------------------------------------------------\n");
+	printf("\t\tMODIFIED DETAILS\n");
+	printf("------------------------------------------------------------------------------------\n");
+	printf("Enter product name:");
+	scanf("%s",&item[mod-1].name);
+	printf("Enter product code:");
+	scanf("%d",&item[mod-1].code);
+	printf("Enter price of product:");
+	scanf("%f",&item[mod-1].price);
+	printf("Enter discount (if any?):");
+	scanf("%d",&item[mod-1].discount);
+	printf("-------------------------------------------------------------------------------------\n");
+	
+	}
+
 }
 
 
-void display_All()
+void display_All(int count)
 {
-	printf("We will display all products here!!");
+	int i;
+	for(i=0;i<count;i++)
+	{
+		printf("Product code : %d\n",item[i].code);
+		printf("Product name:%s\n\n",item[i].name);
+		printf("Price:%f\n",item[i].price);
+		printf("Discount(if any?):%d\n",item[i].discount);
+		printf("-----------------------------------------------------------------------------------\n");
+		printf("-----------------------------------------------------------------------------------\n\n");
+	}
 	
-}
-
-
-void product_Menu()
-{
-	printf("We will display product menu here!!");
 }
 
 
@@ -74,6 +244,7 @@ void ADMINISTRATOR()
 				
 		{
 			int admin;
+			//static int count=0;
 			administrator();
 			printf("What you want to do?\n");
 			scanf("%d",&admin);	
@@ -82,7 +253,8 @@ void ADMINISTRATOR()
 			{
 				case 1:
 					{
-						add();
+						count++;
+						add(count);
 						printf("Press any key to continue.......\n");
 						getch();
 						break;
@@ -103,14 +275,14 @@ void ADMINISTRATOR()
 					}
 				case 4:
 					{
-						display_All();
+						display_All(count);
 						printf("Press any key to continue.........\n");
 						getch();
 						break;
 					}
 				case 5:
 					{
-						product_Menu();
+						product_Menu(count);
 						printf("Press any key to continue.........\n");
 						getch();
 						break;
@@ -127,6 +299,7 @@ void ADMINISTRATOR()
 						getch();
 					}
 			}
+			
 		}
 					
 		while(1);
@@ -140,7 +313,61 @@ void ADMINISTRATOR()
 
 void costumer()
 {
-	printf("costumer block:\n");
+	char status;
+	static int flag=0;
+	static int i=0;
+	int code[1000],num;
+	
+	printf("------------------------------------------------------------------------------------------\n");
+	printf("\t\tWELCOME TO OUR SUPERMARKET\n");
+	printf("-------------------------------------------------------------------------------------------\n");
+	printf("what do you want to buy?\n\n");
+	
+	
+	product_Menu(count);
+	
+	printf("Place your order please!!\n\n");
+	
+	printf("---------------------------------------------------------------------------------------------\n");
+	do
+	{
+		printf("Enter product sr no.:");
+		scanf("%d",&code[i]);
+		num=code[i];
+		printf("Enter quantity:");
+		scanf("%d",&item[num].quantity);
+		printf("--------------------------------------------------------------------------------------------\n");
+		i++;
+		flag++;
+		printf("do you want to buy more products(Y/N)?:");
+		scanf("%s",&status);
+		
+	}
+	while(status!='N');
+	int number;
+	float grand_total=0,total_price[1000],final_price[1000];
+	
+	printf("--------------------------------------------------------------------------------------------------------------------------------\n");
+	printf("\t\tBILL DETAILS\n");
+	printf("---------------------------------------------------------------------------------------------------------------------------------\n");
+	printf("\tSR_NO. \t\t| CODE \t\t| ITEM \t\t| PRICE \t| QUANTITY \t| DISCOUNT %% \t| TOTAL PRICE\t\n");
+	printf("----------------------------------------------------------------------------------------------------------------------------------\n\n\n");
+
+	for(i=0;i<flag;i++)
+	{
+		number=code[i];
+		total_price[i]=(item[number-1].price*item[number].quantity);
+		final_price[i]=total_price[i]-(total_price[i]*(((float)item[number-1].discount)/100));
+		printf("\t%d \t\t %d\t\t %s\t\t %f\t\t %d\t\t %d\t\t %f\t\n",number,item[number-1].code,item[number-1].name,item[number-1].price,item[number].quantity,item[number-1].discount,final_price[i]);
+		grand_total+=final_price[i];
+	}
+	
+	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
+	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
+	printf("\t\t\t\t\t\t\t\t\t\t\t\tGRAND TOTAL-%f\n",grand_total);
+	printf("-------------------------------------------------------------------------------------------------------------------------------------\n");
+	
+	
 }
 
 
